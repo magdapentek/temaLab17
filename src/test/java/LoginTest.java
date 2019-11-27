@@ -1,20 +1,55 @@
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LoginTest {
-    public static void main(String[] args) {
+
+    private WebDriver driver;
+
+    @Before
+    public void initDriver() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+         driver = new ChromeDriver();
+    }
 
-        driver.get("https://fasttrackit.org/selenium-test/");
+    @Test
+    public void validLoginTest(){
+
+        driver.get("https://fasttrackit.org/selenium-test/customer/account/login/");
         driver.manage().window().maximize();
-
-        driver.findElement(By.cssSelector("#header > div > div.skip-links > div > a > span.label")).click();
-        driver.findElement(By.cssSelector("#header-account > div > ul > li.last > a")).click();
+        WebElement loginButton = driver.findElement((By.cssSelector("#send2")));
         driver.findElement(By.cssSelector("#email")).sendKeys("pentekmagda@yahoo.com");
         driver.findElement(By.cssSelector("#pass")).sendKeys("123456");
-        driver.findElement(By.cssSelector("#send2 > span > span")).click();
-        driver.close();
+        loginButton.click();
+        WebElement welcomeMessageElement = driver.findElement(By.cssSelector("p.hello > strong"));
+
+        Assert.assertEquals(welcomeMessageElement.getText(), "Hello, Magda Pentek!");
+
     }
+
+    @Test
+    public void invalidTest(){
+        driver.get("https://fasttrackit.org/selenium-test/customer/account/login/");
+        driver.manage().window().maximize();
+        WebElement loginButton = driver.findElement((By.cssSelector("#send2")));
+        driver.findElement(By.cssSelector("#email")).sendKeys("pentekmagda@yahoo.com");
+        driver.findElement(By.cssSelector("#pass")).sendKeys("123456");
+        loginButton.click();
+        WebElement welcomeMessageElement = driver.findElement(By.cssSelector("p.hello > strong"));
+
+        Assert.assertFalse(welcomeMessageElement.getText(), false);
+    }
+
+
+    @After
+    public void closeDriver(){
+        driver.quit();
+    }
+
+
 }
