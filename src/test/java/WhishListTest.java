@@ -14,6 +14,7 @@ public class WhishListTest {
     public void initDriver() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
 
     @Test
@@ -21,7 +22,6 @@ public class WhishListTest {
         driver = new ChromeDriver();
 
         driver.get("https://fasttrackit.org/selenium-test/");
-        driver.manage().window().maximize();
 
         driver.findElement(By.cssSelector("#header > div > div.skip-links > div > a > span.label")).click();
         driver.findElement(By.cssSelector("#header-account > div > ul > li.last > a")).click();
@@ -44,7 +44,7 @@ public class WhishListTest {
          driver = new ChromeDriver();
 
         driver.get("https://fasttrackit.org/selenium-test/");
-        driver.manage().window().maximize();
+
          driver.findElement(By.cssSelector("#header > div > div.skip-links > div > a > span.label")).click();
         driver.findElement(By.cssSelector("#header-account > div > ul > li.last > a")).click();
         driver.findElement(By.cssSelector("#email")).sendKeys("pentekmagda@yahoo.com");
@@ -74,7 +74,7 @@ public class WhishListTest {
         driver = new ChromeDriver();
 
         driver.get("https://fasttrackit.org/selenium-test/");
-        driver.manage().window().maximize();
+
 
         WebElement sale = driver.findElement(By.cssSelector("li.level0.nav-5.parent > a"));
         sale.click();
@@ -85,9 +85,6 @@ public class WhishListTest {
         addToWishlist.click();
         WebElement loginPagen = driver.findElement(By.cssSelector("div.col-2.registered-users > div.content.fieldset > h2"));
         Assert.assertEquals(loginPagen.getText(), "ALREADY REGISTERED?");
-
-
-
 
     }
 

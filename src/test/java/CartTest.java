@@ -14,13 +14,14 @@ public class CartTest {
             public void initDriver() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
 
     @Test
             public void validCartTest() throws InterruptedException {
 
         driver.get("https://fasttrackit.org/selenium-test/");
-        driver.manage().window().maximize();
+
         driver.findElement(By.cssSelector("#search")).sendKeys("dress");
         driver.findElement(By.cssSelector("#search_mini_form > div.input-box > button")).click();
         driver.findElement(By.cssSelector("#product-collection-image-425")).click();
@@ -54,7 +55,6 @@ public class CartTest {
     public void deleteProduct () throws InterruptedException {
 
         driver.get("https://fasttrackit.org/selenium-test/");
-        driver.manage().window().maximize();
         driver.findElement(By.cssSelector("#search")).sendKeys("dress");
         driver.findElement(By.cssSelector("#search_mini_form > div.input-box > button")).click();
         driver.findElement(By.cssSelector("#product-collection-image-425")).click();

@@ -15,13 +15,14 @@ public class LoginTest {
     public void initDriver() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
          driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
 
     @Test
     public void validLoginTest(){
 
         driver.get("https://fasttrackit.org/selenium-test/customer/account/login/");
-        driver.manage().window().maximize();
+
         WebElement loginButton = driver.findElement((By.cssSelector("#send2")));
         driver.findElement(By.cssSelector("#email")).sendKeys("pentekmagda@yahoo.com");
         driver.findElement(By.cssSelector("#pass")).sendKeys("123456");
@@ -35,7 +36,6 @@ public class LoginTest {
     @Test
     public void invalidTest(){
         driver.get("https://fasttrackit.org/selenium-test/customer/account/login/");
-        driver.manage().window().maximize();
         WebElement loginButton = driver.findElement((By.cssSelector("#send2")));
         driver.findElement(By.cssSelector("#email")).sendKeys("pentekmagda@yahoo.com");
         driver.findElement(By.cssSelector("#pass")).sendKeys("123456");

@@ -1,3 +1,5 @@
+import net.bytebuddy.utility.RandomString;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -6,6 +8,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+
+import java.util.Random;
 
 import static org.openqa.selenium.By.className;
 
@@ -21,27 +27,28 @@ public class RegisterTest {
     public void initDriver() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
+        driver.manage().window().maximize();
     }
     @Test
     public void registerValidTest() throws InterruptedException{
+        String userEmail = RandomStringUtils.randomAlphanumeric(5)+ "@testFastTrackIt.com";
 
         driver.get("https://fasttrackit.org/selenium-test/");
-        driver.manage().window().maximize();
 
         WebElement registerButton = driver.findElement(By.cssSelector("div.skip-links > div > a > span.label"));
         registerButton.click();
         driver.findElement(By.cssSelector("#header-account > div > ul > li:nth-child(5) > a")).click();
         driver.findElement(By.id("firstname")).sendKeys("Pentek");
         driver.findElement(By.name("lastname")).sendKeys("Magda");
-        driver.findElement(By.id("email_address")).sendKeys("magdiakadelpentek30@yahoo.com");
+        driver.findElement(By.id("email_address")).sendKeys(userEmail);
         driver.findElement(By.name("password")).sendKeys("0246810");
         driver.findElement(By.id("confirmation")).sendKeys("0246810");
         driver.findElement(By.id("is_subscribed")).click();
-        driver.findElement(By.xpath("//*[@id=\"form-validate\"]/div[2]/button/span/span")).click();
+        driver.findElement(By.cssSelector("div.buttons-set button > span > span")).click();
         WebElement myDashbord = driver.findElement(By.cssSelector("div.page-title > h1"));
         Assert.assertEquals(myDashbord.getText(), "MY DASHBOARD");
 
-        Thread.sleep(5000);
+        Thread.sleep(3000);
 
     }
 
